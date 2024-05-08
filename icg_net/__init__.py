@@ -1,0 +1,1 @@
+from .icg_net import ICGNetModule, get_model # noqa F401
