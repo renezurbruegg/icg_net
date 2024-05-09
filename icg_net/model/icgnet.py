@@ -632,7 +632,6 @@ class ICGNet(nn.Module):
         self.multi_res_feats = aux
 
         if "dense" in self.interpolation_mode:
-
             self.dense_feats, self.dense_aux = (
                 dense_feats,
                 dense_aux,
@@ -663,7 +662,7 @@ class ICGNet(nn.Module):
         with torch.no_grad():
             coords = [start_coords]
             for _ in reversed(range(len(aux) - 1)):
-                if self.repr_sort_idxs:
+                if not self.repr_sort_idxs:
                     coords.append(self.pooling(coords[-1]))
                 else:
                     coords.append(sort_spare_tensor(self.pooling(coords[-1]))[0])

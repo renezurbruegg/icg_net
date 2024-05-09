@@ -64,4 +64,4 @@ class ResnetBlockFC(nn.Module):
         else:
             x_s = data
 
-        return x_s + dx
+        return self.actvn(x_s + dx)
