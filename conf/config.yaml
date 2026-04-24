@@ -1,0 +1,66 @@
+defaults:
+  - data: bs8_3mm_xyz
+  - data/datasets: packed_local
+  - data/data_loaders: simple_loader
+  - data/collation_functions: voxelize_collate_sdf
+  - logging: full
+  - model: icgnet_tiny
+  - optimizer: adamw
+  - scheduler: linear_cosine
+  - trainer: trainer600_acc_2
+  - callbacks: callbacks_instance_segmentation
+  - matcher: ours_recon_scene
+  - loss: occ_bce_grasp_bce_width
+  - _self_
+
+general:
+  project_name: icg_net_local
+  experiment_name: packed_local_tiny
+
+  train_mode: true
+  seed: 0
+  save_dir: saved/${general.experiment_name}
+  with_aux_losses: true
+  vis_attention: false
+  ignore_mask_idx: []
+  max_batch_size: 9999999999
+  gpus: 1
+  task: instance_segmentation
+  checkpoint: null
+  backbone_checkpoint: null
+  ckpt_resume_path: null
+  num_targets: 7
+  add_instance: true
+  num_mesh_vis: 5
+  num_mesh_eval: 10
+  eval_train_rate: -1
+  freeze_backbone: false
+  linear_probing_backbone: false
+  train_on_segments: false
+  eval_on_segments: false
+  filter_out_instances: false
+  save_visualizations: false
+  visualization_point_size: 20
+  decoder_id: -1
+  export: false
+  use_dbscan: false
+  ignore_class_threshold: 100
+  workspace: None
+  dbscan_eps: 0.95
+  dbscan_min_points: 1
+  export_threshold: 0.0001
+  ss_warmup_epochs: 0
+  reps_per_epoch: 1
+  on_crops: false
+  scores_threshold: 0.0
+  iou_threshold: 1.0
+  area: 5
+  eval_inner_core: -1
+  topk_per_image: 6
+
+hydra:
+  run:
+    dir: saved/hydra_logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: saved/hydra_logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}_${hydra.job.id}

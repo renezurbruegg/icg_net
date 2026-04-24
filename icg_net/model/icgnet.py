@@ -45,7 +45,7 @@ import torch.nn.functional as F
 
 from icg_net.model.feature_volume.combined import CombinedFeatureVolume
 
-from icg_net.typing import ICGNetOutput
+from icg_net.type_defs import ICGNetOutput
 
 # Parse Backbone
 from omegaconf.dictconfig import DictConfig
@@ -715,10 +715,14 @@ class ICGNet(nn.Module):
                 splits = [len(p) for p in out.predictions_mask[i]]
                 out_idxs = self.coord_sort_maps[-1].split(splits)
                 for j in range(len(out.predictions_mask[i])):
-                    out_mask = out_idxs[j] - out_idxs[j].min()
-                    preds = torch.zeros_like(out.predictions_mask[i][j])
-                    preds[out_mask] = out.predictions_mask[i][j]
-                    out.predictions_mask[i][j] = preds
+                    if out.predictions_mask[i][j].shape[0] != out_idxs[j].shape[0]:
+                        raise RuntimeError(
+                            "Mask prediction rows do not match sparse sort map "
+                            f"for batch {j}: {out.predictions_mask[i][j].shape[0]} != {out_idxs[j].shape[0]}"
+                        )
+                    # `coord_sort_maps` stores the permutation used to sort sparse points.
+                    # Undo it with the inverse permutation instead of scattering by global indices.
+                    out.predictions_mask[i][j] = out.predictions_mask[i][j][torch.argsort(out_idxs[j])]
 
         return {
             "pred_logits": out.predictions_class[-1],

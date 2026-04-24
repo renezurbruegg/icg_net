@@ -1,0 +1,24 @@
+# @package _group_
+- _target_: pytorch_lightning.callbacks.ModelCheckpoint
+  monitor: train_loss_mask
+  save_last: true
+  save_top_k: -1
+  mode: max
+  dirpath: ${general.save_dir}
+  # filename: "{epoch}-{val/metric/f1_epoch:.3f}--{val/metric/grasp_scene/f1_epoch:.3f}"
+  filename: "{epoch}"
+  every_n_epochs: 5
+  auto_insert_metric_name: false
+
+- _target_: pytorch_lightning.callbacks.ModelCheckpoint
+  monitor: val/scene_grasp/f1
+  save_last: true
+  save_top_k: 1
+  mode: max
+  dirpath: ${general.save_dir}
+  # filename: "{epoch}-{val/metric/f1_epoch:.3f}--{val/metric/grasp_scene/f1_epoch:.3f}"
+  filename: "{epoch}--{val/scene_grasp/f1:.3f}"
+  every_n_epochs: 1
+  auto_insert_metric_name: false
+  
+- _target_: pytorch_lightning.callbacks.LearningRateMonitor

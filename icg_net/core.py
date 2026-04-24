@@ -15,7 +15,7 @@ import trimesh
 import time
 
 from icg_net.utils.mcubes.mesh_extractor import Generator3D
-from icg_net.typing import Grasp, SceneEmbedding, ModelPredOut
+from icg_net.type_defs import Grasp, SceneEmbedding, ModelPredOut
 
 from icg_net.utils.gripper import get_gripper_points, get_gripper_points_mask
 from icg_net.utils.checkpoint import load_checkpoint_with_missing_or_exsessive_keys

@@ -2,7 +2,7 @@ from __future__ import annotations
 import matplotlib.pyplot as plt
 import os
 import torch
-from icg_net.typing.types import Grasp
+from icg_net.type_defs.types import Grasp
 from scipy.spatial.transform import Rotation
 import trimesh
 from icg_net.utils.grasps import (
@@ -16,7 +16,7 @@ from torch import nn
 
 import trimesh
 import numpy as np
-from icg_net.typing import ModelPredOut
+from icg_net.type_defs import ModelPredOut
 
 tabmap = plt.get_cmap("tab10", 10)
 

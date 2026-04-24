@@ -1,0 +1,14 @@
+# @package _group_
+
+scheduler:
+  _target_: icg_net.trainer.optim.cosine_ann.LinearWarmupCosineAnnealingLR
+  warmup_epochs: 800 # dataset size ~ 1000 per epoch
+  warmup_start_lr: 0.00001
+  max_epochs: 70000 # 100 episodes
+  eta_min: 0.00001
+
+
+  # need to set to number because of tensorboard logger
+
+pytorch_lightning_params:
+  interval: step

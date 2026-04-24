@@ -63,9 +63,8 @@ build/
 dist/
 *.egg-info/
 *.pyc
-data/
-data/*
 logs
 *.pyx
 *.mako
 *.so
+saved/*

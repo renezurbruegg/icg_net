@@ -1,0 +1,65 @@
+# @package _group_
+_target_: icg_net.model.icgnet.Mask3D
+
+
+hidden_dim: 32
+num_queries: 32
+dim_feedforward: 128
+sample_sizes: [200, 800, 3200, 3200, 4096, 4096, 8192, 8192]
+
+# PLANES = (32, 64, 128, 256, 128, 128, 96, 96)
+
+num_classes: 7
+hlevels: [1, 2,3,4]
+max_sample_size: 51200
+# backbone: Res16UNetBase # TODO
+backbone: 
+  _target_: icg_net.minkowski.Res16UNet34C
+  config:
+    conv1_kernel_size: 5
+    bn_momentum: 0.02
+  # depends on normals, color, raw_coordinates
+  # varies from 3 to 9
+  in_channels: ${data.in_channels}
+  out_channels: 32 #${data.num_labels}
+  out_fpn: true
+
+
+with_grasps: true
+# Queries
+learnable_embeddings: true
+pos_sampling_mode: cluster3D #oracle
+# Pos Encodings
+positional_encoding_type: fourier
+normalize_pos_enc: max
+gauss_scale:  2.0
+# Arch choices
+grasp_decoder: occnet_width
+sdf_decoder: occnet
+num_heads: 8
+shared_decoder: true
+num_decoders: 1
+pre_norm: false
+decoder_sa_layers: 0
+decoder_with_scale: true
+with_query_renderer: false
+w_feature_render_mlp: true
+add_normalized_positions: false
+with_obj_grasp_cross_attention: false
+latent_prod_decoder: false
+refine_position: false
+only_one_embedding: false
+learnable_pos_embeddings: true
+normalize_embeddings: true
+interpolate_decoder_features: true
+quantization_size: ${data.voxel_size}
+
+
+dense_decoder_cfg:
+  quantization_size: 0.01 # 1cm
+  # Conversion from sparse to dense for U-Net
+  borders: [0.0, 0.29]
+  feature_maps: 32
+  depth: 4
+
+interpolation_mode: points|dense|pointnet #|add_pts_pos_enc

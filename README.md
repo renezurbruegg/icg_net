@@ -103,7 +103,7 @@ pip install -e .
 ```python
 
 from icg_net import ICGNetModule, get_model
-from icg_net.typing import ModelPredOut
+from icg__net.type_defs import ModelPredOut
 
 
 # Load model

@@ -1,0 +1,21 @@
+# @package _group_
+_target_: icg_net.trainer.matcher.instance_matcher.HungarianMatcher
+cost_class: 10
+cost_mask: 5
+cost_dice: 2
+cost_pose: 0 # Try to match the pose of the object
+
+num_points: -1
+
+costs:
+  sdf: 5
+
+  grasp_object: 0.0
+  grasp_width_object: 0.0
+
+  grasp_scene: 5.0
+  grasp_width_scene: 1.0
+
+  scene_occ: 10.0
+  scene_grasp_aff: 10.0
+  scene_grasp_width: 2.0

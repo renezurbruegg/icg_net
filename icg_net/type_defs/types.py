@@ -46,7 +46,7 @@ class ICGNetOutput(TypedDict):
     intermittent_latents: List[Tensor]
     positional_encodings: Tensor
     aux_outputs: dict[str, Tensor]
-    sampled_coords: np.typing.NDArray[np.float32]
+    sampled_coords: np.typing.NDArray[np.float3232]
     backbone_features: List[ME.SparseTensor]
     attention_info: List[tuple[Tensor | None, Tensor]]
     object_grasp_queries: List[Tensor]

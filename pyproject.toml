@@ -7,3 +7,17 @@ python_files = "*_test.py"
 [tool.isort]
 profile = "black"
 line_length = 120
+
+
+
+[tool.setuptools.packages.find]
+include = ["icg_net"]
+where = ["."]
+
+
+[project]
+name = "icg_net"
+version = "0.1.0"  # Add your version here
+dependencies = [
+    # list of your dependencies, if any
+]

@@ -6,17 +6,14 @@ except ImportError:
 from distutils.extension import Extension
 
 import numpy
-from Cython.Build import cythonize
 from torch.utils.cpp_extension import BuildExtension
 
-# Get the numpy include directory.
 numpy_include_dir = numpy.get_include()
 
-# mcubes (marching cubes algorithm)
 mcubes_module = Extension(
     "mcubes",
     sources=[
-        "src/mcubes.pyx",
+        "src/mcubes.cpp",
         "src/pywrapper.cpp",
         "src/marchingcubes.cpp",
     ],
@@ -25,11 +22,5 @@ mcubes_module = Extension(
     include_dirs=[numpy_include_dir],
 )
 
-
-# Gather all extension modules
-ext_modules = [
-    mcubes_module,
-]
-
-setup(name = "mcubes", ext_modules=cythonize(ext_modules), cmdclass={"build_ext": BuildExtension})
+setup(name="mcubes", ext_modules=[mcubes_module], cmdclass={"build_ext": BuildExtension})
 

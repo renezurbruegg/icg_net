@@ -7,9 +7,12 @@ import trimesh
 from numpy.typing import NDArray
 
 try:
-    from icg_benchmark.third_party.libmcubes.mcubes import marching_cubes  # TODO FIX THIS
+    from mcubes import marching_cubes
 except ImportError:
-    print("mcubes not installed... Mesh extraction will not work.")
+    try:
+        from icg_benchmark.third_party.libmcubes.mcubes import marching_cubes
+    except ImportError:
+        print("mcubes not installed... Mesh extraction will not work.")
 
 NDArrayF64 = NDArray[np.float64]
 

@@ -1,0 +1,17 @@
+# @package _group_
+_target_: icg_net.trainer.criterion.criterion.SetCriterionWithWidth
+num_classes: ${general.num_targets}
+eos_coef: 0.1
+losses:
+  - "labels"
+  - "masks"
+  - "sdf"
+  - "grasps"
+  - "normals"
+
+num_points: ${matcher.num_points}
+class_weights: -1
+sdf_loss_type: "bce"
+sdf_clip: 0.05 # 5cm
+grasp_loss_type: "bce"
+exclude_sdf_class: []

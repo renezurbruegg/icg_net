@@ -1,0 +1,10 @@
+outputs/
+saved/
+datasets/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+docs/

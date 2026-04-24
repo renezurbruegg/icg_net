@@ -57,6 +57,6 @@ dependencies:
   - zlib=1.2.13=h5eee18b_0
   - zstandard=0.19.0=py310h5eee18b_0
   - pip
-  - cudatoolkit=13.3
+  - cudatoolkit=11.3
   - cuda=11.3
 prefix: /opt/conda

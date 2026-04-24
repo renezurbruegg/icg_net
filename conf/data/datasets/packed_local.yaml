@@ -1,0 +1,53 @@
+# @package data
+train_dataset:
+  _target_: icg_net.data.giga_contact_dataset.GigaContactDataset
+  data_dir: /media/zrene/T7/euler/packed_obj_centric_labels
+  data_percent: 1.0
+  mode: ${data.train_mode}
+  num_labels: ${data.num_labels}
+  patch_paths: null
+  add_raw_coordinates: ${data.add_raw_coordinates}
+  add_colors: ${data.add_colors}
+  add_normals: ${data.add_normals}
+  add_z_coordinate: ${data.add_z_coordinate}
+  add_all_coordinates: ${data.add_all_coordinates}
+  flip_in_center: false
+  reps_per_epoch: 1
+  num_sdf_points: 32768
+  load_grasps: true
+  rand_rotate: true
+  rand_translate: false
+  exclude_classes: [0]
+  balance_sdf: false
+  balance_grasps: true
+  noise_rate: 0.0015
+  point_drop: 0.3
+  color_drop: 0.0
+  num_grasp_points_scene: 128
+  block_drop: 0.15
+  block_drop_size: 0.02
+  heavy_augment: true
+  add_dex_noise: false
+  single_class: false
+
+validation_dataset:
+  _target_: icg_net.data.giga_contact_dataset.GigaContactDataset
+  data_dir: /media/zrene/T7/euler/packed_obj_centric_labels
+  data_percent: 0.1
+  mode: ${data.validation_mode}
+  num_labels: ${data.num_labels}
+  patch_paths: null
+  add_raw_coordinates: ${data.add_raw_coordinates}
+  add_colors: ${data.add_colors}
+  add_normals: ${data.add_normals}
+  add_z_coordinate: ${data.add_z_coordinate}
+  add_all_coordinates: ${data.add_all_coordinates}
+  load_grasps: true
+  num_sdf_points: 32000
+  exclude_classes: [0]
+  single_class: false
+
+test_dataset:
+  _target_: icg_net.data.giga_contact_dataset.GigaContactTestDataset
+  data_dir: []
+  data_percent: 1
